@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<title>Demo Gamelist</title>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+	body {background-color:rgb(84, 89, 94); margin-top:15px;}
+	h1 {color:white;}
+	#logout {float:right; margin-top:10px;}
+	</style>
+</head>
+<body>
+	<div class="container p-3 mb-2 bg-dark text-white rounded">
+	<div class="d-flex justify-content-center">
+	<div class="col-md-4">
+		<h1>Games</h1>
+	</div>
+	<div class="col-md-4">
+		<h1 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h1>
+	</div>
+	<div class="col-md-4">
+		<form th:action="@{/logout}" method="post">
+			<input id="logout" type="submit" value="Sign Out" class="btn btn-outline-danger"/>
+		</form>
+	</div>
+	</div>
+	<table class="table table-dark">
+		<thead>
+		<tr>
+		<th>Name</th>
+		<th>Studio</th>
+		<th>Release</th>
+		<th>Metacritic</th>
+		<th>Genre</th>
+		<th sec:authorize="hasAuthority('ADMIN')"></th>
+		<th sec:authorize="hasAuthority('ADMIN')"></th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr th:each = "game : ${games}">
+				<td th:text = "${game.name}"></td>
+				<td th:text = "${game.studio}"></td>
+				<td th:text = "${game.release}"></td>
+				<td th:text = "${game.metacritic}"></td>
+				<td th:text = "${game.genre.name}"></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-success" th:href="@{/update/{id}(id=${game.id})}">Edit</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" th:href="@{/delete/{id}(id=${game.id})}">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="/add" class="btn btn-success">Add Game</a>
+	<a href="/genrelist" class="btn btn-info">List of genres</a>
+	</div>
+</body>
+</html>

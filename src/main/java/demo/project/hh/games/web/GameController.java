@@ -50,7 +50,7 @@ public class GameController {
 		return repository.findById(GameId);
 	}
 	
-	@RequestMapping(value="books", method = RequestMethod.POST)
+	@RequestMapping(value="games", method = RequestMethod.POST)
 	public @ResponseBody Game saveGameRest(@RequestBody Game game) {
 		return repository.save(game);
 	}
@@ -78,8 +78,8 @@ public class GameController {
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/update/{id}")
 	public String updateGame(@PathVariable("id") Long gameId, Model model) {
-		 model.addAttribute("book", repository.findById(gameId));
+		 model.addAttribute("game", repository.findById(gameId));
 		 model.addAttribute("genres", grepository.findAll());
-		 return "updatebook";
+		 return "updategame";
 	}
 }

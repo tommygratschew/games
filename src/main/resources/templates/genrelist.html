@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+	<title>Genres</title>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+	body {background-color:rgb(84, 89, 94); margin-top:15px;}
+	h1 {color:white;}
+	</style>
+</head>
+<body>
+	<div class="container p-3 mb-2 bg-dark text-white rounded">
+	<div class="col-md-4">
+	<h1>Genres</h1>
+	</div>
+	<table class="table table-dark">
+		<thead>
+		<tr>
+		<th>ID</th>
+		<th>Genre</th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr th:each = "genre : ${genres}">
+				<td th:text = "${genre.idGenre}"></td>
+				<td th:text = "${genre.name}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<a href="/addg" class="btn btn-success">Add genre</a>
+	<a href="/gamelist" class="btn btn-info">List of games</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+	<title>Edit Game</title>
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+	body {background-color:rgb(84, 89, 94); margin-top:15px;}
+	h1 {color:white;}
+	</style>
+</head>
+<body>
+	<div class="container p-3 mb-2 bg-dark text-white rounded">
+	<h1>Edit game</h1>
+	<form th:object="${game}" th:action="@{../save}" action="#" method="post">
+		<input type="hidden" id="id" th:field="*{id}"/>
+		<div class="form-group">
+		<label for="t">Name</label>
+		<input class="form-control" type="text" id="t" th:field="*{name}"/>
+		</div>
+		<div class="form-group">
+		<label for="a">Studio</label>
+		<input class="form-control" type="text" id="a" th:field="*{studio}"/>
+		</div>
+		<div class="form-group">
+		<label for="y">Release</label>
+		<input class="form-control" type="text" id="y" th:field="*{release}"/>
+		</div>
+		<div class="form-group">
+		<label for="i">Metacritic</label>
+		<input class="form-control" type="text" id="i" th:field="*{metacritic}"/>
+		</div>
+		<div class="form-group">
+		<label for="cat">Genre</label>
+		<select id="cat" th:field="*{genre}" class="form-control">
+			<option th:each="genre: ${genres}" th:value="${genre.idGenre}" th:text="${genre.name}"></option>
+		</select>
+		</div>
+		<input class="btn btn-success" type="submit" value="Save & return"/>
+		<a href="/gamelist" class="btn btn-info">Return without saving</a>
+	</form>
+	</div>
+</body>
+</html>
