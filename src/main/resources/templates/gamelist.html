@@ -11,6 +11,7 @@
 	body {background-color:rgb(84, 89, 94); margin-top:15px;}
 	h1 {color:white;}
 	#logout {float:right; margin-top:10px;}
+	#login {float:right; margin-top:10px;}
 	</style>
 </head>
 <body>
@@ -19,13 +20,16 @@
 	<div class="col-md-4">
 		<h1>Games</h1>
 	</div>
-	<div class="col-md-4">
+	<div sec:authorize="isAuthenticated()" class="col-md-4">
 		<h1 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h1>
 	</div>
-	<div class="col-md-4">
+	<div sec:authorize="isAuthenticated()" class="col-md-4">
 		<form th:action="@{/logout}" method="post">
 			<input id="logout" type="submit" value="Sign Out" class="btn btn-outline-danger"/>
 		</form>
+	</div>
+	<div sec:authorize="isAnonymous()" class="col-md-8">
+			<a id="login" href="/login" class="btn btn-info">Login</a>
 	</div>
 	</div>
 	<table class="table table-dark">
@@ -52,8 +56,8 @@
 			</tr>
 		</tbody>
 	</table>
-	<a href="/add" class="btn btn-success">Add Game</a>
-	<a href="/genrelist" class="btn btn-info">List of genres</a>
+	<a sec:authorize="isAuthenticated()" href="/add" class="btn btn-success">Add Game</a>
+	<a sec:authorize="isAuthenticated()" href="/genrelist" class="btn btn-info">List of genres</a>
 	</div>
 </body>
 </html>
